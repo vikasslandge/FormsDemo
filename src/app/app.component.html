@@ -4,17 +4,66 @@
     Welcome to {{ title }}!
   </h1>
  </div>
-  <form class="container" style="margin-left: 450px" >
+  <form novalidate #registrationForm="ngForm" class="container" style="margin-left: 450px"   >
     <br><br>
+    {{registrationForm.value|json}}
+    <br>
+    {{form|json}} <br>
+    <!--Name input field-->
      Name  <br>
-    <input type="text" name="name" class="form-control" ><br>
+    <input type="text" name="name" class="form-control inputClass"[(ngModel)]="form.name" #name="ngModel"required minlength="4" ><br>
+    <div *ngIf="name.invalid && (name.dirty || name.touched)"class="alert alert-danger">
+
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+         Name must be at least 4 characters long.
+        </div>
+ 
+    </div>
+ <!--Email input field-->
     <label>Email </label><br>
-    <input type="email" name="email" class="form-control"  ><br>
+    <input type="email" name="email" class="form-control inputClass"  [(ngModel)]="form.email" #email="ngModel"required><br>
+    <div *ngIf="email.invalid &&(email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+          Email is required
+        </div>
+    </div>
+ <!--street input field-->
     <label>Street </label><br>
-    <input type="text" name="street"  class="form-control"><br>
+    <input type="text" name="street"  class="form-control inputClass"[(ngModel)]="form.street" #street="ngModel"required ><br>
+    <div *ngIf="street.invalid &&(street.dirty || street.touched)" class="alert alert-danger">
+        <div *ngIf="street.errors.required">
+          street is  required
+        </div>
+    </div>
+ <!--city input field-->
     <label>City </label><br>
-    <input type="text" name="city" class="form-control"  ><br><br>
-    <input type="submit" name="" class="btn btn-success">
+    <input type="text" name="city" class="form-control inputClass" [(ngModel)]="form.city" #city="ngModel" required><br><br>
+    <div *ngIf="city.invalid &&(city.dirty || city.touched)" class="alert alert-danger">
+        <div *ngIf="city.errors.required">
+          City field cannot be blank
+        </div>
+    </div>
+ <!--passport input field-->
+ <label>passport </label><br>
+ <input type="radio" name="passport"   [(ngModel)]="form.passport" #passport="ngModel" required value="Yes"> Yes <br>
+ <input type="radio" name="passport"   [(ngModel)]="form.passport"    value="No">No<br><br> 
+  <!-- <div *ngIf="passport.invalid  " class="alert alert-danger">
+    
+      Please select passport available Yes or No
+    
+ </div> -->
+ <!--city input field-->
+ <label>Skills </label><br>
+ <input type="checkbox" name="Skills" class="form-control"   ngModel #skills="ngModel" required><br><br>
+ <div *ngIf="skills.invalid &&(skills.dirty || skills.touched)" class="alert alert-danger">
+     <div *ngIf="Skills.errors.required">
+       Skills field must to select
+     </div>
+ </div>
+    <input type="submit" [disabled]="!registrationForm.form.valid" name="" class="btn btn-success" >
   </form>
 
 <router-outlet></router-outlet>

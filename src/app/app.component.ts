@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FormsDemo';
+form= new FormsDetails("vikas","vk@landge","latur","Latur");
+
+}
+export class FormsDetails{
+  constructor(public name,public email,public street,public city){
+  }
 }
